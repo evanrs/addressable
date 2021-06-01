@@ -7,7 +7,7 @@ import { render, fireEvent, waitFor, screen } from '../tools'
 describe('Home page', () => {
   it('matches snapshot', async () => {
     const result = render(<Home />, {})
-    await waitFor(() => screen.getByText('Unknown'))
+    await waitFor(() => screen.getByText('Street Address'))
 
     expect(result.asFragment()).toMatchSnapshot()
   })
