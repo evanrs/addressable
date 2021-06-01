@@ -1,10 +1,6 @@
 # Addressable
 
-This simple proration tool includes a backend and frontend built principally with Next.js, Fastify, and JSON Schema.
-
-A suite of tests are provided to verify the allocation logic, api route handling, basic rendering capabilities and so forth.
-
-Much of this work here builds off corollary work from my personal projects — any code provided is not exclusive and will be reused in my future work.
+Normalizes addresses — see run with [docker](#docker)
 
 ## Prerequisites
 
@@ -42,7 +38,7 @@ yarn build
 yarn start
 ```
 
-## Docker
+[## Docker](#docker)
 
 Rather than building locally a dockerfile is provided to build and run the app
 
