@@ -13,17 +13,17 @@ You will be implementing [the flow in this figma prototype](https://www.figma.co
 ### Requirements
 
 - [x] Use [Next.js](https://nextjs.org/) to build and bundle the application
-- [ ] All 3 pages are fully functional with a minimal required focus on design
+- [x] All 3 pages are fully functional with a minimal required focus on design
   - [x] User can enter an address(/address)
-  - [ ] Address will be normalized
-  - [ ] User can choose between the address they entered and the normalized address(/choose-address)
-  - [ ] The chosen address is shown as a final step(/confirm-address)
-- [ ] Provide validation as the user types for the following required form fields
+  - [x] Address will be normalized
+  - [x] User can choose between the address they entered and the normalized address(/choose-address)
+  - [x] The chosen address is shown as a final step(/confirm-address)
+- [x] Provide validation as the user types for the following required form fields
   - [x] `street`
   - [x] `state`
   - [x] `city`
   - [x] `postalCode`
-- [ ] Build the address form in a way that enables reuse
+- [x] Build the address form in a way that enables reuse
 
 ### Turning in the assignment
 
