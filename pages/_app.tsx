@@ -1,6 +1,4 @@
-require('../mocks').mock({
-  enabled: process.env.NEXT_PUBLIC_API_MOCKING === 'enabled',
-})
+require('../mocks').mount(process.env.NEXT_PUBLIC_API_MOCKING === 'enabled')
 
 import { ApolloProvider } from '@apollo/client'
 import type { AppProps } from 'next/app'
