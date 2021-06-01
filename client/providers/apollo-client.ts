@@ -3,7 +3,7 @@ import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 const cache = new InMemoryCache()
 
 const link = new HttpLink({
-  uri: 'http://api.staging.updater.com/graphql',
+  uri: 'https://api.staging.updater.com/graphql',
   headers: {
     // 'access-token': `mdyZLf5vphENjcdpkZ-VpQ`,
     // client: `tZmRsp7breugP8BBCC3q7A`,
