@@ -6,6 +6,6 @@ export function trimRecord<T extends Record<string, string>>(values: T): T {
   return acc as T
 }
 
-export function trim(v?: unknown) {
-  return typeof v === 'string' ? v.replace(/(^\s+)|(\s+$)/g, '') : v
+export function trim<T>(v?: string): string {
+  return typeof v === 'string' ? v.replace(/(^\s+)|(\s+$)/g, '') : ''
 }

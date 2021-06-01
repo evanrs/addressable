@@ -10,12 +10,11 @@ export function isEqual<T extends Record<string, unknown>>(
 
   return Object.keys(reference).every((k) => {
     let a = reference[k]
-    let b = partial[k]
+    let b = partial[k] as string | undefined
 
-    a = typeof a === 'string' ? trim(a) : a
-    b = typeof b === 'string' ? trim(b) : b
+    if (typeof a === 'string') a = trim(a)
+    if (typeof b === 'string') b = trim(b)
 
-    console.log(k, `${a}${b}`, a === b)
     return a === b
   })
 }

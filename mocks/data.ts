@@ -10,9 +10,11 @@ export const addressInput: AddressInput = {
 
 // no data here
 export const normalizedAddress: NormalizedAddressResponse = {
-  city: 'New York',
-  state: 'NY',
-  street: '19 Union Sq W',
-  unit: '12',
-  postalCode: '10003',
+  normalizedAddress: {
+    city: 'New York',
+    state: 'NY',
+    street: '19 Union Sq W',
+    unit: '12',
+    postalCode: '10003',
+  },
 }

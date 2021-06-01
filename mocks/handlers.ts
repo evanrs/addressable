@@ -8,15 +8,6 @@ export const handlers = [
   normalizedAddressHandler,
 
   rest.post(/graphql/, async (req, res, ctx) => {
-    console.log(req)
-    console.log('parse', normalizedAddressHandler.parse(req))
-    console.log(
-      'predicate',
-      normalizedAddressHandler.predicate(req, normalizedAddressHandler.parse(req)),
-    )
-    console.log('run', await normalizedAddressHandler.run(req))
-    normalizedAddressHandler.run(req)
-
     return res(ctx.json({ normalizedAddress: { normalizedAddress } }))
   }),
 ]

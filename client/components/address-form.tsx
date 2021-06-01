@@ -1,20 +1,15 @@
-import { Grid } from '@chakra-ui/layout'
 import { vestResolver } from '@hookform/resolvers/vest'
 import { useForm, UseFormProps, UseFormReturn } from 'react-hook-form'
+import { Grid, GridProps } from '@chakra-ui/react'
 import { Field } from './field'
 import { AddressInput, validateAddress } from '../providers'
 
-export type AddressFormProps = Parameters<typeof Grid>[0] & {
+export type AddressFormProps = GridProps & {
   form: UseFormReturn<AddressInput>
 }
 
 export function useAddressForm(props: Omit<UseFormProps<AddressInput>, 'resolver'>) {
-  const form = useForm<AddressInput>({
-    ...props,
-    resolver: vestResolver(validateAddress),
-  })
-
-  return form
+  return useForm<AddressInput>({ ...props, resolver: vestResolver(validateAddress) })
 }
 
 export const AddressForm: React.FC<AddressFormProps> = ({ form, children, ...gridProps }) => {
