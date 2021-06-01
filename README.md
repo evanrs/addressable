@@ -38,7 +38,7 @@ yarn build
 yarn start
 ```
 
-[## Docker](#docker)
+## Docker [🐋](#docker)
 
 Rather than building locally a dockerfile is provided to build and run the app
 
