@@ -19,12 +19,8 @@ export function useAddressForm(props: Omit<UseFormProps<AddressInput>, 'resolver
 
 export const AddressForm: React.FC<AddressFormProps> = ({ form, children, ...gridProps }) => {
   const handleSubmit = form.handleSubmit(
-    (data, e) => {
-      // console.log(data, e)
-    },
-    (errors, e) => {
-      // console.log(errors, e)
-    },
+    (data, e) => {},
+    (errors, e) => {},
   )
 
   return (

@@ -1,3 +1,5 @@
+import { trim } from './trim'
+
 export function isEqual<T extends Record<string, unknown>>(
   reference?: T,
   partial?: Partial<T>,
@@ -7,8 +9,14 @@ export function isEqual<T extends Record<string, unknown>>(
   }
 
   return Object.keys(reference).every((k) => {
-    console.log(k, reference[k], partial[k], reference[k] === partial[k])
-    return reference[k] === partial[k]
+    let a = reference[k]
+    let b = partial[k]
+
+    a = typeof a === 'string' ? trim(a) : a
+    b = typeof b === 'string' ? trim(b) : b
+
+    console.log(k, `${a}${b}`, a === b)
+    return a === b
   })
 }
 

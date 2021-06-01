@@ -26,7 +26,7 @@ export const Field = <
 >(
   props: FieldProps<TFieldValues, TName>,
 ) => {
-  const { field, fieldState, formState } = useController(props)
+  const { field, fieldState } = useController(props)
 
   return (
     <FormControl isInvalid={Boolean(fieldState.error)}>
