@@ -1,13 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { Button } from '@chakra-ui/button'
-import { useForm } from 'react-hook-form'
+
+import { AddressForm, useAddressForm } from './components'
 import { AddressInput, NormalizedAddressResponse } from './providers'
-import { AddressForm } from './components/address-form'
-import { NormalizedAddressQuery } from './queries/normalized-address-query'
+import { NormalizedAddressQuery } from './queries'
+import { Storage } from './tools'
+import { Flex } from '@chakra-ui/layout'
+
+const storage = Storage<AddressInput>('addressable')
+const defaultValues = storage.get('form')
+
+type WorkflowState = 'form' | 'compare' | 'review'
 
 export const Addressable: React.FC = () => {
-  const form = useAddressForm()
+  const [state, setState] = useState<WorkflowState>('form')
+  const form = useAddressForm({ defaultValues })
+
+  useEffect(() => {
+    storage.set('form', form.getValues())
+  }, [form.formState.submitCount])
 
   const query = useQuery<NormalizedAddressResponse, { input: AddressInput }>(
     NormalizedAddressQuery,
@@ -17,22 +29,21 @@ export const Addressable: React.FC = () => {
     },
   )
 
-  const handleSubmit = form.handleSubmit(
-    (data, e) => console.log(data, e),
-    (errors, e) => console.log(errors, e),
-  )
+  useEffect(() => {
+    console.log(query.data)
+  }, [query.data])
 
-  return (
-    <AddressForm form={form}>
-      <Button type="submit" onSubmit={handleSubmit} mt={4}>
+  return state === 'form' ? (
+    <AddressForm form={form} maxWidth="25rem">
+      <Button type="submit" mt={4} size="lg">
         Next
       </Button>
     </AddressForm>
+  ) : state === 'compare' ? (
+    'compare'
+  ) : state === 'review' ? (
+    'review'
+  ) : (
+    'This is an error.'
   )
-}
-
-function useAddressForm() {
-  const form = useForm<AddressInput>({})
-
-  return form
 }

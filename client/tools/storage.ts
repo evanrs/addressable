@@ -2,7 +2,7 @@ export function Storage<T>(prefix?: string) {
   const keyFor = (key?: string) => [prefix, key].filter(Boolean).join(':')
 
   const storage = {
-    get(key?: string): T | undefined {
+    get<R = T>(key?: string): R | undefined {
       try {
         return JSON.parse(localStorage.getItem(keyFor(key)) ?? '') ?? undefined
       } catch (error) {
@@ -10,7 +10,7 @@ export function Storage<T>(prefix?: string) {
       }
     },
 
-    set<V extends Partial<T>>(key: string, value: V): V {
+    set<R = T, V extends Partial<R> = R>(key: string, value: V): V {
       localStorage.setItem(keyFor(key), JSON.stringify(value))
       return value
     },

@@ -21,7 +21,7 @@ export const Home: NextPage<HomeProps> = (_) => {
       <Supervisor reset={() => setInstanceKey((v) => v + 1)} />
 
       {/* the root layout */}
-      <Viewport>
+      <Viewport py="3.5rem">
         {/* the star of the show */}
         <Addressable key={instanceKey}></Addressable>
       </Viewport>

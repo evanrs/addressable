@@ -1,26 +1,41 @@
 import { Grid } from '@chakra-ui/layout'
-import { UseFormReturn } from 'react-hook-form'
-import { AddressInput } from '../providers'
-import { Field } from '.'
+import { vestResolver } from '@hookform/resolvers/vest'
+import { useForm, UseFormProps, UseFormReturn } from 'react-hook-form'
+import { Field } from './field'
+import { AddressInput, validateAddress } from '../providers'
 
-export type AddressFormProps = {
+export type AddressFormProps = Parameters<typeof Grid>[0] & {
   form: UseFormReturn<AddressInput>
 }
 
-export const AddressForm: React.FC<AddressFormProps> = ({ form, children }) => {
+export function useAddressForm(props: Omit<UseFormProps<AddressInput>, 'resolver'>) {
+  const form = useForm<AddressInput>({
+    ...props,
+    resolver: vestResolver(validateAddress),
+  })
+
+  return form
+}
+
+export const AddressForm: React.FC<AddressFormProps> = ({ form, children, ...gridProps }) => {
   const handleSubmit = form.handleSubmit(
-    (data, e) => console.log(data, e),
-    (errors, e) => console.log(errors, e),
+    (data, e) => {
+      // console.log(data, e)
+    },
+    (errors, e) => {
+      // console.log(errors, e)
+    },
   )
 
   return (
     <Grid
-      as="form"
-      templateRows="1fr 1fr 1fr"
-      gridAutoColumns="1fr"
+      mx="auto"
       gap={4}
       maxWidth="40rem"
-      mx="auto"
+      templateRows="1fr 1fr 1fr"
+      gridAutoColumns="1fr"
+      {...gridProps}
+      as="form"
       onSubmit={handleSubmit}
     >
       <Field

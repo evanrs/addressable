@@ -37,6 +37,7 @@
     "@evanrs/fetch": "^0.2.0",
     "@fontsource/poppins": "4.3.0",
     "@fontsource/ubuntu-mono": "4.3.0",
+    "@hookform/resolvers": "2.5.2",
     "@sinclair/typebox": "0.16.7",
     "ajv": "8.5.0",
     "currency.js": "2.0.4",

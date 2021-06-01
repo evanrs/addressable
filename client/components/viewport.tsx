@@ -1,6 +1,6 @@
 import { useColorModeValue, Flex } from '@chakra-ui/react'
 
-export const Viewport: React.FC = ({ children }) => (
+export const Viewport: React.FC<Parameters<typeof Flex>[0]> = ({ children, ...rest }) => (
   <Flex
     height="100%"
     width="100%"
@@ -10,9 +10,9 @@ export const Viewport: React.FC = ({ children }) => (
     sx={safeAreaInsetPadding}
   >
     <Flex
+      {...rest}
       direction="column"
-      pl={[2, 4, 4, 6, 8]}
-      pr={[1, 1, 2, 4, 4]}
+      px={[2, 4, 4, 6, 8]}
       width="100%"
       maxWidth={['48rem', '48rem', '54rem', '58rem']}
       transitionProperty="max-width"

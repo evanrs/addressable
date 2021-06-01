@@ -35,7 +35,7 @@ export const Field = <
         {...fieldStyleProps}
         {...props}
         {...field}
-        value={field.value as InputProps['value']}
+        value={(field.value ?? '') as InputProps['value']}
       />
       <FormErrorMessage>{fieldState.error?.message}</FormErrorMessage>
     </FormControl>
