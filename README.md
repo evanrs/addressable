@@ -1,6 +1,8 @@
 # Addressable
 
-Normalizes addresses — see run with [docker](#docker)
+Addressable provides an address normalization workflow with help from Updater's normalized address query — [see it running now](https://updater-addressable.vercel.app/).
+
+Or run your own instance with [docker](#docker)
 
 ## Prerequisites
 
@@ -38,7 +40,7 @@ yarn build
 yarn start
 ```
 
-## Docker [🐋](#docker)
+## Docker
 
 Rather than building locally a dockerfile is provided to build and run the app
 
