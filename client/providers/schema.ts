@@ -17,8 +17,10 @@ export const AddressInput = Type.Object({
   }),
 })
 
-export type NormalizedAddressResponse = Static<typeof AddressInput>
-export const NormalizedAddressResponse = AddressInput
+export type NormalizedAddressResponse = Static<typeof NormalizedAddressResponse>
+export const NormalizedAddressResponse = Type.Object({
+  normalizedAddress: AddressInput,
+})
 
 export const validateAddress = vest.create((data = {}) => {
   test('street', 'Street Address is required', () => {
