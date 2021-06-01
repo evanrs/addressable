@@ -18,7 +18,12 @@ export const Home: NextPage<HomeProps> = (_) => {
       </Head>
 
       {/* a few tools to control things */}
-      <Supervisor reset={() => setInstanceKey((v) => v + 1)} />
+      <Supervisor
+        reset={() => {
+          localStorage.clear()
+          setInstanceKey((v) => v + 1)
+        }}
+      />
 
       {/* the root layout */}
       <Viewport py="3.5rem">

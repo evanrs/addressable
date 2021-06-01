@@ -10,9 +10,8 @@ export function Storage<T>(prefix?: string) {
       }
     },
 
-    set<R = T, V extends Partial<R> = R>(key: string | undefined, value: V): V {
+    set<R = T, V extends Partial<R> = R>(key: string | undefined, value?: V) {
       localStorage.setItem(keyFor(key), JSON.stringify(value))
-      return value
     },
 
     remove(key?: string) {
