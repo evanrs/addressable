@@ -20,7 +20,7 @@ export const CompareAddress: React.FC<CompareAddressProps> = ({ usps, input, onS
       <Heading size="md" mb={8}>
         Which address do you use?
       </Heading>
-      <Grid templateColumns="1fr 1fr" gap={8}>
+      <Grid templateColumns={['1fr', '1fr', '1fr 1fr']} gap={8}>
         <Option
           title="Official USPS Address"
           icon={<StarIcon mr=".5rem" />}

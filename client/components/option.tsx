@@ -14,7 +14,7 @@ type OptionProps = ButtonProps & {
   icon?: unknown
   title?: unknown
   align?: 'left' | 'center' | 'right'
-  readOnly: boolean
+  readOnly?: boolean
 }
 
 export const Option: React.FC<OptionProps> = ({ icon, title, readOnly, children, ...props }) => {
