@@ -1,12 +1,12 @@
-import React, { DependencyList, useCallback, useEffect, useMemo, useState } from 'react'
 import { useQuery } from '@apollo/client'
-import { Flex, Grid, Heading, Text, Button } from '@chakra-ui/react'
+import { Button, Flex, Heading, Container, Center, Divider } from '@chakra-ui/react'
+import React, { useCallback, useEffect, useState } from 'react'
 
-import { Address, AddressForm, CompareAddress, useAddressForm } from './components'
+import { Address, AddressForm, CompareAddress, Option, useAddressForm } from './components'
+import { useLocalState } from './hooks'
 import { AddressInput, NormalizedAddressResponse } from './providers'
 import { NormalizedAddressQuery } from './queries'
 import { isEqual, trimRecord } from './tools'
-import { useLocalState } from './hooks'
 
 type WorkflowState = 'form' | 'compare' | 'review'
 
@@ -14,7 +14,6 @@ export const Addressable: React.FC = () => {
   const [state, setState] = useState<WorkflowState>('form')
   const [values, setValues] = useLocalState<AddressInput>('form')
   const [submitted, setSubmitted] = useState<AddressInput>()
-
   const form = useAddressForm({ defaultValues: values })
 
   const query = useQuery<
@@ -22,7 +21,7 @@ export const Addressable: React.FC = () => {
     { address: AddressInput }
   >(NormalizedAddressQuery, { variables: { address: submitted as AddressInput } })
 
-  // save state
+  // save values from form, or promote when valid
   useEffect(() => {
     if (form.formState.submitCount > 0) {
       const values = trimRecord(form.getValues())
@@ -33,21 +32,26 @@ export const Addressable: React.FC = () => {
     }
   }, [form.formState.submitCount])
 
+  // store submission when valid
   useEffect(() => {
-    if ((form.formState.submitCount > 0, form.formState.isSubmitSuccessful)) {
+    if (form.formState.submitCount > 0 && form.formState.isSubmitSuccessful) {
       setSubmitted(form.getValues())
     }
   }, [form.formState.submitCount])
 
+  // perform our request when they've submitted a valid value
   useEffect(() => {
-    if (form.formState) query.refetch({ address: submitted })
+    if (form.formState.isSubmitted) {
+      query.refetch({ address: submitted })
+    }
   }, [submitted])
 
+  // manage state
   useEffect(() => {
     if (query.data) {
       if (isEqual(form.getValues(), query.data.normalizedAddress.normalizedAddress)) {
         setState('review')
-      } else {
+      } else if (state === 'form') {
         setState('compare')
       }
     }
@@ -66,11 +70,19 @@ export const Addressable: React.FC = () => {
   }, [])
 
   return state === 'form' ? (
-    <AddressForm form={form} maxWidth="25rem">
-      <Button type="submit" mt={4} size="lg">
-        Next
-      </Button>
-    </AddressForm>
+    <Container centerContent>
+      <Heading size="lg" my="1rem">
+        🚚
+      </Heading>
+      <Heading size="md" mb={8}>
+        What address are you moving from?
+      </Heading>
+      <AddressForm form={form} maxWidth="25rem">
+        <Button type="submit" mt={4} size="lg">
+          Next
+        </Button>
+      </AddressForm>
+    </Container>
   ) : state === 'compare' ? (
     <CompareAddress
       usps={query.data?.normalizedAddress.normalizedAddress}
@@ -80,7 +92,12 @@ export const Addressable: React.FC = () => {
   ) : state === 'review' ? (
     <AddressReview address={submitted} onRepeat={reset}></AddressReview>
   ) : (
-    <>This is an error.</>
+    <Center>
+      <Heading size="lg" ml="-3rem" mr="1.5rem">
+        🥲
+      </Heading>
+      {'This is an error.'}
+    </Center>
   )
 }
 
@@ -90,11 +107,17 @@ const AddressReview = ({ address, onRepeat }: { address?: AddressInput; onRepeat
       <Heading size="lg" my="1rem">
         🚚
       </Heading>
-      <Heading size="md" mb={6}>
+      <Heading size="md" mb={8}>
         Does this look correct?
       </Heading>
-      <Address address={address} />
-      <Button size="lg" mt={12} onClick={onRepeat}>
+
+      <Option as="div" maxW="12rem" colorScheme="blackAlpha" height="8rem">
+        <Address address={address} />
+      </Option>
+
+      <Flex minHeight="1rem" mb={4} />
+
+      <Button size="lg" mt={8} onClick={onRepeat}>
         Enter New Address
       </Button>
     </Flex>
