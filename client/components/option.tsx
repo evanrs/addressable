@@ -1,5 +1,13 @@
 import React from 'react'
-import { useColorModeValue, Button, ButtonProps, Center, Heading, VStack } from '@chakra-ui/react'
+import {
+  useColorModeValue,
+  Button,
+  ButtonProps,
+  Center,
+  Heading,
+  VStack,
+  Flex,
+} from '@chakra-ui/react'
 
 const buttonProps: ButtonProps = {
   fontSize: '17px',
@@ -11,6 +19,7 @@ const buttonProps: ButtonProps = {
   maxWidth: '32rem',
   height: '8.5rem',
 
+  borderRadius: 8,
   borderStyle: 'solid',
   borderWidth: 2,
 
@@ -50,7 +59,7 @@ export const Option: React.FC<OptionProps> = ({ icon, title, align, children, ..
   }
 
   return (
-    <Button {...buttonProps} {...alignProps} {...colorProps} {...props}>
+    <Flex as={Button} {...buttonProps} {...alignProps} {...colorProps} {...props}>
       <VStack flex="1" align="flex-start" justify="space-evenly">
         {Boolean(title) && (
           <Center my=".25rem">
@@ -62,6 +71,6 @@ export const Option: React.FC<OptionProps> = ({ icon, title, align, children, ..
         )}
         {children}
       </VStack>
-    </Button>
+    </Flex>
   )
 }
