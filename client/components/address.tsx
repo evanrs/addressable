@@ -1,10 +1,11 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, FlexProps, Text } from '@chakra-ui/react'
 
 import { AddressInput } from '../providers'
 
-type AddressProps = { address?: AddressInput } & Parameters<typeof Flex>[0]
-export const Address: React.FC<AddressProps> = ({ address, ...props }) => (
+export type AddressProps = { address?: AddressInput } & FlexProps
+export const Address: React.FC<AddressProps> = ({ address, children, ...props }) => (
   <Flex direction="column" {...props}>
+    {children}
     <Text>
       {address?.street}
       {address?.unit ? `, ${address?.unit}` : ''}
