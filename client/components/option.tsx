@@ -1,48 +1,84 @@
-import React from 'react'
 import {
   useColorModeValue,
   Button,
   ButtonProps,
   Center,
+  Flex,
+  FlexProps,
   Heading,
   VStack,
-  Flex,
 } from '@chakra-ui/react'
-
-const buttonProps: ButtonProps = {
-  fontSize: '17px',
-  lineHeight: '1.75rem',
-
-  size: 'lg',
-  width: '100%',
-  minWidth: '15rem',
-  maxWidth: '32rem',
-  height: '8.5rem',
-
-  borderRadius: 8,
-  borderStyle: 'solid',
-  borderWidth: 2,
-
-  py: '.75rem',
-  paddingInlineStart: '1.5rem',
-  paddingInlineEnd: '1.5rem',
-
-  variant: 'ghost',
-
-  textAlign: 'left',
-  alignItems: 'center',
-  flexDirection: 'column',
-
-  sx: { wordSpacing: '.125rem' },
-}
+import React from 'react'
 
 type OptionProps = ButtonProps & {
   icon?: unknown
   title?: unknown
   align?: 'left' | 'center' | 'right'
+  readOnly: boolean
 }
 
-export const Option: React.FC<OptionProps> = ({ icon, title, align, children, ...props }) => {
+export const Option: React.FC<OptionProps> = ({ icon, title, readOnly, children, ...props }) => {
+  const contents = (
+    <VStack flex="1" align="flex-start" justify="space-evenly">
+      {Boolean(title) && (
+        <Center my=".25rem">
+          {icon}
+          <Heading size="xs" fontSize=".75rem" mt=".125rem">
+            {title}
+          </Heading>
+        </Center>
+      )}
+      {children}
+    </VStack>
+  )
+
+  return readOnly ? (
+    <Flex {...(useOptionProps(props) as FlexProps)}>{contents}</Flex>
+  ) : (
+    <Button {...useOptionProps(props)}>
+      <VStack flex="1" align="flex-start" justify="space-evenly">
+        {Boolean(title) && (
+          <Center my=".25rem">
+            {icon}
+            <Heading size="xs" fontSize=".75rem" mt=".125rem">
+              {title}
+            </Heading>
+          </Center>
+        )}
+        {children}
+      </VStack>
+    </Button>
+  )
+}
+
+export function useOptionProps({ align, ...props }: Partial<OptionProps> = {}) {
+  const buttonProps: ButtonProps = {
+    fontSize: '17px',
+    lineHeight: '1.75rem',
+
+    size: 'lg',
+    width: '100%',
+    minWidth: '15rem',
+    maxWidth: '32rem',
+    height: '8.5rem',
+
+    borderRadius: 8,
+    borderStyle: 'solid',
+    borderWidth: 2,
+
+    py: '.75rem',
+    paddingInlineStart: '1.5rem',
+    paddingInlineEnd: '1.5rem',
+
+    variant: 'ghost',
+
+    textAlign: 'left',
+    alignItems: 'center',
+    flexDirection: 'column',
+
+    sx: { wordSpacing: '.125rem' },
+  }
+
   const alignProps: ButtonProps =
     align === 'left'
       ? { textAlign: 'left', alignItems: 'flex-start' }
@@ -58,19 +94,5 @@ export const Option: React.FC<OptionProps> = ({ icon, title, align, children, ..
     borderColor: useColorModeValue('gray.100', 'gray.700'),
   }
 
-  return (
-    <Flex as={Button} {...buttonProps} {...alignProps} {...colorProps} {...props}>
-      <VStack flex="1" align="flex-start" justify="space-evenly">
-        {Boolean(title) && (
-          <Center my=".25rem">
-            {icon}
-            <Heading size="xs" fontSize=".75rem" mt=".125rem">
-              {title}
-            </Heading>
-          </Center>
-        )}
-        {children}
-      </VStack>
-    </Flex>
-  )
+  return { ...buttonProps, ...alignProps, ...colorProps, ...props }
 }

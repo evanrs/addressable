@@ -111,7 +111,7 @@ const AddressReview = ({ address, onRepeat }: { address?: AddressInput; onRepeat
         Does this look correct?
       </Heading>
 
-      <Option as="div" maxW="12rem" colorScheme="blackAlpha" height="8rem">
+      <Option readOnly maxW="12rem" height="8rem">
         <Address address={address} />
       </Option>
 
