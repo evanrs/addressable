@@ -9,15 +9,16 @@ function isValue<T>(value: unknown): value is T {
 
 export function useLocalState<T>(key: string, defaultValue?: T) {
   const storage = useMemo(() => Storage<T>(key), [key])
-  const [state, setState] = useState<T | symbol | undefined>(
-    useMemo(() => storage.get() ?? defaultValue ?? flag, []),
-  )
+  const initial = useMemo(() => storage.get() ?? defaultValue ?? flag, [storage])
+  const [state, setState] = useState<T | symbol | undefined>(initial)
+
   // initialize from local storage
   useEffect(() => {
-    setState(storage.get() ?? flag)
+    setState(initial)
     // clean up on unmounts
     return () => storage.remove()
-  }, [storage])
+  }, [initial])
+
   // update on state change
   useEffect(() => {
     if (isValue<T>(state)) storage.set(undefined, state)
