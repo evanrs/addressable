@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client'
-import { Button, Flex, Heading, Container, Center, Divider } from '@chakra-ui/react'
+import { Button, Center, Container, Flex, Heading, Spinner } from '@chakra-ui/react'
 import React, { useCallback, useEffect, useState } from 'react'
-
 import { Address, AddressForm, CompareAddress, Option, useAddressForm } from './components'
 import { useLocalState } from './hooks'
 import { AddressInput, NormalizedAddressResponse } from './providers'
@@ -78,8 +77,13 @@ export const Addressable: React.FC = () => {
         What address are you moving from?
       </Heading>
       <AddressForm form={form} maxWidth="25rem">
-        <Button type="submit" mt={4} size="lg">
-          Next
+        <Button
+          type="submit"
+          mt={4}
+          size="lg"
+          disabled={!form.formState.touchedFields || query.loading}
+        >
+          {query.loading ? <Spinner /> : <>Next</>}
         </Button>
       </AddressForm>
     </Container>
