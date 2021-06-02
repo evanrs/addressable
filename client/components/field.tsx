@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { FormErrorMessage, FormLabel, FormControl, Input, Button } from '@chakra-ui/react'
-import { useController, UseControllerProps, FieldPath, FieldValues } from 'react-hook-form'
+import React from 'react'
+import { FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react'
+import { FieldPath, FieldValues, useController, UseControllerProps } from 'react-hook-form'
 
 export type InputProps = Parameters<typeof Input>[0]
 
@@ -11,8 +11,8 @@ export type Setter<K = string | number, V = string | number | undefined> = (
 
 export const fieldStyleProps = {
   variant: 'filled',
-  fontSize: ['2.5vw', 'xs', 'xs', 13, 'sm'],
-  px: [2, 2, 2, 4],
+  fontSize: ['xs', 'xs', 'xs', 13, 'sm'],
+  px: [2, 2, 4, 4],
 }
 
 export type FieldProps<

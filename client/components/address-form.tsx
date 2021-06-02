@@ -21,9 +21,9 @@ export const AddressForm: React.FC<AddressFormProps> = ({ form, children, ...gri
   return (
     <Grid
       mx="auto"
-      gap={4}
+      gap={[3, 4]}
+      width="100%"
       maxWidth="40rem"
-      templateRows="1fr 1fr 1fr"
       gridAutoColumns="1fr"
       {...gridProps}
       as="form"

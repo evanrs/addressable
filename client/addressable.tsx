@@ -70,10 +70,10 @@ export const Addressable: React.FC = () => {
 
   return state === 'form' ? (
     <Container centerContent>
-      <Heading size="lg" my="1rem">
+      <Heading size="lg" my={['0.75rem', '1rem']}>
         🚚
       </Heading>
-      <Heading size="md" mb={8}>
+      <Heading size="md" mb={[6, 8]}>
         What address are you moving from?
       </Heading>
       <AddressForm form={form} maxWidth="25rem">
