@@ -1,11 +1,12 @@
 import { useQuery } from '@apollo/client'
-import { Button, Center, Container, Flex, Heading, Spinner } from '@chakra-ui/react'
+import { Button, Center, Container, Flex, Spinner } from '@chakra-ui/react'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Address, AddressForm, CompareAddress, Option, useAddressForm } from './components'
+
+import { isEqual, trimRecord } from './tools'
 import { useLocalState } from './hooks'
 import { AddressInput, NormalizedAddressResponse } from './providers'
 import { NormalizedAddressQuery } from './queries'
-import { isEqual, trimRecord } from './tools'
+import { Address, AddressForm, CompareAddress, Option, Heading, useAddressForm } from './components'
 
 type WorkflowState = 'form' | 'compare' | 'review'
 
@@ -45,7 +46,7 @@ export const Addressable: React.FC = () => {
     }
   }, [submitted])
 
-  // manage state
+  // manage state transitions
   useEffect(() => {
     if (query.data) {
       if (isEqual(form.getValues(), query.data.normalizedAddress.normalizedAddress)) {
@@ -70,12 +71,7 @@ export const Addressable: React.FC = () => {
 
   return state === 'form' ? (
     <Container centerContent>
-      <Heading size="lg" my={['0.75rem', '1rem']}>
-        🚚
-      </Heading>
-      <Heading size="md" mb={[6, 8]}>
-        What address are you moving from?
-      </Heading>
+      <Heading>What address are you moving from?</Heading>
       <AddressForm form={form} maxWidth="25rem">
         <Button
           type="submit"
@@ -92,7 +88,9 @@ export const Addressable: React.FC = () => {
       usps={query.data?.normalizedAddress.normalizedAddress}
       input={submitted}
       onSelect={handleSelect}
-    />
+    >
+      <Heading icon="📬">Which address do you use?</Heading>
+    </CompareAddress>
   ) : state === 'review' ? (
     <AddressReview address={submitted} onRepeat={reset}></AddressReview>
   ) : (
@@ -108,12 +106,7 @@ export const Addressable: React.FC = () => {
 const AddressReview = ({ address, onRepeat }: { address?: AddressInput; onRepeat: () => void }) => {
   return (
     <Flex direction="column" alignItems="center">
-      <Heading size="lg" my="1rem">
-        🚚
-      </Heading>
-      <Heading size="md" mb={8}>
-        Does this look correct?
-      </Heading>
+      <Heading>Does this look correct?</Heading>
 
       <Option readOnly maxW="12rem" height="8rem">
         <Address address={address} />
