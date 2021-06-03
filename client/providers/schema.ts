@@ -5,7 +5,7 @@ export type AddressInput = Static<typeof AddressInput>
 export const AddressInput = Type.Object({
   street: Type.String({
     title: 'Street Address',
-    // arbitrary min lenght
+    // arbitrary min length
     minLength: 3,
   }),
   unit: Type.Optional(Type.String()),
