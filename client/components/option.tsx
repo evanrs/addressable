@@ -35,19 +35,7 @@ export const Option: React.FC<OptionProps> = ({ icon, title, readOnly, children,
   return readOnly ? (
     <Flex {...(useOptionProps(props) as FlexProps)}>{contents}</Flex>
   ) : (
-    <Button {...useOptionProps(props)}>
-      <VStack flex="1" align="flex-start" justify="space-evenly">
-        {Boolean(title) && (
-          <Center my=".25rem">
-            {icon}
-            <Heading size="xs" fontSize=".75rem" mt=".125rem">
-              {title}
-            </Heading>
-          </Center>
-        )}
-        {children}
-      </VStack>
-    </Button>
+    <Button {...useOptionProps(props)}>{contents}</Button>
   )
 }
 
